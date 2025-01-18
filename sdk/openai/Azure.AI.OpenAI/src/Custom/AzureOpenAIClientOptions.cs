@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 using System.ClientModel.Primitives;
-using OpenAI;
 
 namespace Azure.AI.OpenAI;
 
@@ -31,17 +30,19 @@ public partial class AzureOpenAIClientOptions : ClientPipelineOptions
     }
     private AzureOpenAIAudience? _authorizationAudience;
 
-    /// <inheritdoc cref="OpenAIClientOptions.ApplicationId"/>
-    public string ApplicationId
+    /// <summary>
+    /// An optional application ID to use as part of the request User-Agent header.
+    /// </summary>
+    public string UserAgentApplicationId
     {
-        get => _applicationId;
+        get => _userAgentApplicationId;
         set
         {
             AssertNotFrozen();
-            _applicationId = value;
+            _userAgentApplicationId = value;
         }
     }
-    private string _applicationId;
+    private string _userAgentApplicationId;
 
     /// <summary>
     /// Initializes a new instance of <see cref="AzureOpenAIClientOptions"/>
@@ -53,9 +54,13 @@ public partial class AzureOpenAIClientOptions : ClientPipelineOptions
     {
         Version = version switch
         {
-            ServiceVersion.V2024_04_01_Preview => "2024-04-01-preview",
-            ServiceVersion.V2024_05_01_Preview => "2024-05-01-preview",
+#if !AZURE_OPENAI_GA
+            ServiceVersion.V2024_08_01_Preview => "2024-08-01-preview",
+            ServiceVersion.V2024_09_01_Preview => "2024-09-01-preview",
+            ServiceVersion.V2024_10_01_Preview => "2024-10-01-preview",
+#endif
             ServiceVersion.V2024_06_01 => "2024-06-01",
+            ServiceVersion.V2024_10_21 => "2024-10-21",
             _ => throw new NotSupportedException()
         };
         RetryPolicy = new RetryWithDelaysPolicy();
@@ -64,10 +69,13 @@ public partial class AzureOpenAIClientOptions : ClientPipelineOptions
     /// <summary> The version of the service to use. </summary>
     public enum ServiceVersion
     {
-        /// <summary> Service version "2024-04-01-preview". </summary>
-        V2024_04_01_Preview = 7,
-        V2024_05_01_Preview = 8,
-        V2024_06_01 = 9,
+        V2024_06_01 = 0,
+#if !AZURE_OPENAI_GA
+        V2024_08_01_Preview = 1,
+        V2024_09_01_Preview = 2,
+        V2024_10_01_Preview = 3,
+#endif
+        V2024_10_21 = 4,
     }
 
     internal class RetryWithDelaysPolicy : ClientRetryPolicy
@@ -98,5 +106,9 @@ public partial class AzureOpenAIClientOptions : ClientPipelineOptions
         }
     }
 
-    private const ServiceVersion LatestVersion = ServiceVersion.V2024_05_01_Preview;
+#if !AZURE_OPENAI_GA
+    private const ServiceVersion LatestVersion = ServiceVersion.V2024_10_01_Preview;
+#else
+    private const ServiceVersion LatestVersion = ServiceVersion.V2024_10_21;
+#endif
 }

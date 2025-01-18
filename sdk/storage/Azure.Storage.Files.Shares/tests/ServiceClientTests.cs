@@ -151,21 +151,36 @@ namespace Azure.Storage.Files.Shares.Tests
             Response<ShareServiceProperties> propertiesResponse = await service.GetPropertiesAsync();
             ShareServiceProperties properties = propertiesResponse.Value;
 
-            // Assert
-            Assert.IsFalse(properties.Protocol.Smb.Multichannel.Enabled);
+            if (properties.Protocol.Smb.Multichannel.Enabled == true)
+            {
+                // Act
+                properties.Protocol.Smb.Multichannel.Enabled = false;
+                await service.SetPropertiesAsync(properties);
+                propertiesResponse = await service.GetPropertiesAsync();
+                properties = propertiesResponse.Value;
 
-            // Act
-            properties.Protocol.Smb.Multichannel.Enabled = true;
-            await service.SetPropertiesAsync(properties);
-            propertiesResponse = await service.GetPropertiesAsync();
-            properties = propertiesResponse.Value;
+                // Assert
+                Assert.IsFalse(properties.Protocol.Smb.Multichannel.Enabled);
 
-            // Assert
-            Assert.IsTrue(properties.Protocol.Smb.Multichannel.Enabled);
+                // Cleanup
+                properties.Protocol.Smb.Multichannel.Enabled = true;
+                await service.SetPropertiesAsync(properties);
+            }
+            else
+            {
+                // Act
+                properties.Protocol.Smb.Multichannel.Enabled = true;
+                await service.SetPropertiesAsync(properties);
+                propertiesResponse = await service.GetPropertiesAsync();
+                properties = propertiesResponse.Value;
 
-            // Cleanup
-            properties.Protocol.Smb.Multichannel.Enabled = false;
-            await service.SetPropertiesAsync(properties);
+                // Assert
+                Assert.IsTrue(properties.Protocol.Smb.Multichannel.Enabled);
+
+                // Cleanup
+                properties.Protocol.Smb.Multichannel.Enabled = false;
+                await service.SetPropertiesAsync(properties);
+            }
         }
 
         [RecordedTest]
@@ -429,6 +444,33 @@ namespace Azure.Storage.Files.Shares.Tests
             Assert.AreEqual(shares.Count, shares.Select(c => c.Name).Distinct().Count());
             Assert.IsTrue(shares.Any(c => share.Uri == service.GetShareClient(c.Name).Uri));
             Assert.IsTrue(shares.All(c => c.Properties.Metadata == null));
+        }
+
+        [RecordedTest]
+        [PlaybackOnly("https://github.com/Azure/azure-sdk-for-net/issues/45675")]
+        [ServiceVersion(Min = ShareClientOptions.ServiceVersion.V2025_01_05)]
+        public async Task ListSharesSegmentAsync_ProvisionedBilling()
+        {
+            // Arrange
+            ShareServiceClient service = SharesClientBuilder.GetServiceClient_SharedKey();
+
+            // Ensure at least one share
+            await using DisposingShare test = await GetTestShareAsync(service);
+            ShareClient share = test.Share;
+
+            List<ShareItem> shares = new List<ShareItem>();
+            await foreach (ShareItem item in service.GetSharesAsync())
+            {
+                shares.Add(item);
+            }
+
+            ShareItem shareItem = shares.FirstOrDefault();
+
+            // Assert
+            Assert.IsNotNull(shareItem.Properties.IncludedBurstIops);
+            Assert.IsNotNull(shareItem.Properties.MaxBurstCreditsForIops);
+            Assert.IsNotNull(shareItem.Properties.NextAllowedProvisionedIopsDowngradeTime);
+            Assert.IsNotNull(shareItem.Properties.NextAllowedProvisionedBandwidthDowngradeTime);
         }
 
         [RecordedTest]

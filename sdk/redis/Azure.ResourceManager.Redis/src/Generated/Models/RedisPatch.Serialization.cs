@@ -20,13 +20,21 @@ namespace Azure.ResourceManager.Redis.Models
 
         void IJsonModel<RedisPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
+            writer.WriteStartObject();
+            JsonModelWriteCore(writer, options);
+            writer.WriteEndObject();
+        }
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        {
             var format = options.Format == "W" ? ((IPersistableModel<RedisPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(RedisPatch)} does not support writing '{format}' format.");
             }
 
-            writer.WriteStartObject();
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -106,6 +114,11 @@ namespace Azure.ResourceManager.Redis.Models
                 writer.WritePropertyName("disableAccessKeyAuthentication"u8);
                 writer.WriteBooleanValue(IsAccessKeyAuthenticationDisabled.Value);
             }
+            if (Optional.IsDefined(ZonalAllocationPolicy))
+            {
+                writer.WritePropertyName("zonalAllocationPolicy"u8);
+                writer.WriteStringValue(ZonalAllocationPolicy.Value.ToString());
+            }
             if (Optional.IsDefined(Sku))
             {
                 writer.WritePropertyName("sku"u8);
@@ -127,7 +140,6 @@ namespace Azure.ResourceManager.Redis.Models
 #endif
                 }
             }
-            writer.WriteEndObject();
         }
 
         RedisPatch IJsonModel<RedisPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -163,6 +175,7 @@ namespace Azure.ResourceManager.Redis.Models
             RedisPublicNetworkAccess? publicNetworkAccess = default;
             UpdateChannel? updateChannel = default;
             bool? disableAccessKeyAuthentication = default;
+            ZonalAllocationPolicy? zonalAllocationPolicy = default;
             RedisSku sku = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -300,6 +313,15 @@ namespace Azure.ResourceManager.Redis.Models
                             disableAccessKeyAuthentication = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("zonalAllocationPolicy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            zonalAllocationPolicy = new ZonalAllocationPolicy(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("sku"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -332,6 +354,7 @@ namespace Azure.ResourceManager.Redis.Models
                 publicNetworkAccess,
                 updateChannel,
                 disableAccessKeyAuthentication,
+                zonalAllocationPolicy,
                 sku,
                 serializedAdditionalRawData);
         }

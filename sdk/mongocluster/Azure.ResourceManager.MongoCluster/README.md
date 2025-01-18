@@ -1,6 +1,6 @@
 # Microsoft Azure MongoCluster management client library for .NET
 
-**[Describe the service briefly first.]**
+Azure Cosmos DB for MongoDB in vCore architecture provides developers with a fully managed MongoDB-compatible database service for building modern applications with a familiar architecture. With Azure Cosmos DB for MongoDB (vCore), developers can enjoy the benefits of native Azure integrations, low total cost of ownership (TCO), and the familiar vCore architecture when migrating existing applications or building new ones.
 
 This library follows the [new Azure SDK guidelines](https://azure.github.io/azure-sdk/general_introduction.html), and provides many core capabilities:
 
@@ -37,7 +37,7 @@ Key concepts of the Microsoft Azure SDK for .NET can be found [here](https://azu
 Documentation is available to help you learn how to use this package:
 
 - [Quickstart](https://github.com/Azure/azure-sdk-for-net/blob/main/doc/dev/mgmt_quickstart.md).
-- [API References](https://docs.microsoft.com/dotnet/api/?view=azure-dotnet).
+- [API References](https://learn.microsoft.com/dotnet/api/?view=azure-dotnet).
 - [Authentication](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/identity/Azure.Identity/README.md).
 
 ## Examples

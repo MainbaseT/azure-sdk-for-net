@@ -41,12 +41,15 @@ trigger:
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
+    - sdk/computefleet/Azure.ResourceManager.ComputeFleet
+    - sdk/computeschedule/Azure.ResourceManager.ComputeSchedule
     - sdk/confidentialledger/Azure.ResourceManager.ConfidentialLedger
     - sdk/confluent/Azure.ResourceManager.Confluent
     - sdk/connectedvmwarevsphere/Azure.ResourceManager.ConnectedVMwarevSphere
     - sdk/consumption/Azure.ResourceManager.Consumption
     - sdk/containerapps/Azure.ResourceManager.AppContainers
     - sdk/containerinstance/Azure.ResourceManager.ContainerInstance
+    - sdk/containerorchestratorruntime/Azure.ResourceManager.ContainerOrchestratorRuntime
     - sdk/containerregistry/Azure.ResourceManager.ContainerRegistry
     - sdk/containerservice/Azure.ResourceManager.ContainerService
     - sdk/cosmosdb/Azure.ResourceManager.CosmosDB
@@ -128,6 +131,7 @@ trigger:
     - sdk/mongocluster/Azure.ResourceManager.MongoCluster
     - sdk/monitor/Azure.ResourceManager.Monitor
     - sdk/mysql/Azure.ResourceManager.MySql
+    - sdk/neonpostgres/Azure.ResourceManager.NeonPostgres
     - sdk/netapp/Azure.ResourceManager.NetApp
     - sdk/network/Azure.ResourceManager.Network
     - sdk/networkanalytics/Azure.ResourceManager.NetworkAnalytics
@@ -191,6 +195,7 @@ trigger:
     - sdk/subscription/Azure.ResourceManager.Subscription
     - sdk/support/Azure.ResourceManager.Support
     - sdk/synapse/Azure.ResourceManager.Synapse
+    - sdk/terraform/Azure.ResourceManager.Terraform
     - sdk/trafficmanager/Azure.ResourceManager.TrafficManager
     - sdk/trustedsigning/Azure.ResourceManager.TrustedSigning
     - sdk/voiceservices/Azure.ResourceManager.VoiceServices
@@ -241,12 +246,15 @@ pr:
     - sdk/cognitiveservices/Azure.ResourceManager.CognitiveServices
     - sdk/communication/Azure.ResourceManager.Communication
     - sdk/compute/Azure.ResourceManager.Compute
+    - sdk/computefleet/Azure.ResourceManager.ComputeFleet
+    - sdk/computeschedule/Azure.ResourceManager.ComputeSchedule
     - sdk/confidentialledger/Azure.ResourceManager.ConfidentialLedger
     - sdk/confluent/Azure.ResourceManager.Confluent
     - sdk/connectedvmwarevsphere/Azure.ResourceManager.ConnectedVMwarevSphere
     - sdk/consumption/Azure.ResourceManager.Consumption
     - sdk/containerapps/Azure.ResourceManager.AppContainers
     - sdk/containerinstance/Azure.ResourceManager.ContainerInstance
+    - sdk/containerorchestratorruntime/Azure.ResourceManager.ContainerOrchestratorRuntime
     - sdk/containerregistry/Azure.ResourceManager.ContainerRegistry
     - sdk/containerservice/Azure.ResourceManager.ContainerService
     - sdk/cosmosdb/Azure.ResourceManager.CosmosDB
@@ -328,6 +336,7 @@ pr:
     - sdk/mongocluster/Azure.ResourceManager.MongoCluster
     - sdk/monitor/Azure.ResourceManager.Monitor
     - sdk/mysql/Azure.ResourceManager.MySql
+    - sdk/neonpostgres/Azure.ResourceManager.NeonPostgres
     - sdk/netapp/Azure.ResourceManager.NetApp
     - sdk/network/Azure.ResourceManager.Network
     - sdk/networkanalytics/Azure.ResourceManager.NetworkAnalytics
@@ -391,6 +400,7 @@ pr:
     - sdk/subscription/Azure.ResourceManager.Subscription
     - sdk/support/Azure.ResourceManager.Support
     - sdk/synapse/Azure.ResourceManager.Synapse
+    - sdk/terraform/Azure.ResourceManager.Terraform
     - sdk/trafficmanager/Azure.ResourceManager.TrafficManager
     - sdk/trustedsigning/Azure.ResourceManager.TrustedSigning
     - sdk/voiceservices/Azure.ResourceManager.VoiceServices

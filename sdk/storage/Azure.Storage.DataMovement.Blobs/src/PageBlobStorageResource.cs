@@ -26,21 +26,12 @@ namespace Azure.Storage.DataMovement.Blobs
 
         public override string ProviderId => "blob";
 
-        /// <summary>
-        /// Defines the recommended Transfer Type for the storage resource.
-        /// </summary>
-        protected override DataTransferOrder TransferType => DataTransferOrder.Unordered;
+        protected override TransferOrder TransferType => TransferOrder.Unordered;
 
-        /// <summary>
-        /// Defines the maximum chunk size for the storage resource.
-        /// </summary>
+        protected override long MaxSupportedSingleTransferSize => Constants.Blob.Page.MaxPageBlockBytes;
+
         protected override long MaxSupportedChunkSize => Constants.Blob.Page.MaxPageBlockBytes;
 
-        /// <summary>
-        /// Length of the storage resource. This information is obtained during a GetStorageResources API call.
-        ///
-        /// Will return default if the length was not set by a GetStorageResources API call.
-        /// </summary>
         protected override long? Length => ResourceProperties?.ResourceLength;
 
         public PageBlobStorageResource()
@@ -318,14 +309,14 @@ namespace Azure.Storage.DataMovement.Blobs
             return await BlobClient.DeleteIfExistsAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
-        protected override StorageResourceCheckpointData GetSourceCheckpointData()
+        protected override StorageResourceCheckpointDetails GetSourceCheckpointDetails()
         {
-            return new BlobSourceCheckpointData();
+            return new BlobSourceCheckpointDetails();
         }
 
-        protected override StorageResourceCheckpointData GetDestinationCheckpointData()
+        protected override StorageResourceCheckpointDetails GetDestinationCheckpointDetails()
         {
-            return new BlobDestinationCheckpointData(
+            return new BlobDestinationCheckpointDetails(
                 blobType: new(BlobType.Page),
                 contentType: _options?.ContentType,
                 contentEncoding: _options?.ContentEncoding,

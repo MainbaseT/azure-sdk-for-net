@@ -21,13 +21,21 @@ namespace Azure.ResourceManager.HybridCompute.Models
 
         void IJsonModel<GatewaysListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
+            writer.WriteStartObject();
+            JsonModelWriteCore(writer, options);
+            writer.WriteEndObject();
+        }
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        {
             var format = options.Format == "W" ? ((IPersistableModel<GatewaysListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(GatewaysListResult)} does not support writing '{format}' format.");
             }
 
-            writer.WriteStartObject();
             writer.WritePropertyName("value"u8);
             writer.WriteStartArray();
             foreach (var item in Value)
@@ -55,7 +63,6 @@ namespace Azure.ResourceManager.HybridCompute.Models
 #endif
                 }
             }
-            writer.WriteEndObject();
         }
 
         GatewaysListResult IJsonModel<GatewaysListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -78,7 +85,7 @@ namespace Azure.ResourceManager.HybridCompute.Models
             {
                 return null;
             }
-            IReadOnlyList<HybridComputeGatewayData> value = default;
+            IReadOnlyList<ArcGatewayData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -86,10 +93,10 @@ namespace Azure.ResourceManager.HybridCompute.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<HybridComputeGatewayData> array = new List<HybridComputeGatewayData>();
+                    List<ArcGatewayData> array = new List<ArcGatewayData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(HybridComputeGatewayData.DeserializeHybridComputeGatewayData(item, options));
+                        array.Add(ArcGatewayData.DeserializeArcGatewayData(item, options));
                     }
                     value = array;
                     continue;

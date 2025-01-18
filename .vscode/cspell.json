@@ -34,6 +34,7 @@
     "*.user",
     ".vscode/cspell.json",
     "assets.json",
+    "eng/Packages.Data.props",
     "sdk/confidentialledger/Azure.Security.CodeTransparency/tests/TestFiles/*",
     // These services are opted out of public API surface spell checking.
     // Spelling issues must be addressed before adding these back in.
@@ -48,47 +49,72 @@
     "sdk/modelsrepository/*/api/*.cs",
     "sdk/monitor/Azure.ResourceManager.Monitor/api/*.cs",
     "sdk/objectanchors/*/api/*.cs",
+    "sdk/openai/Azure.AI.OpenAI/tests/Assets/playback_test_config.json",
     "sdk/purview/*/api/*.cs",
     "sdk/remoterendering/*/api/*.cs",
     "sdk/videoanalyzer/*/api/*.cs",
     "sdk/newrelicobservability/*/api/*.cs",
-    "sdk/paloaltonetworks.ngfw/*/api/*.cs"
+    "sdk/paloaltonetworks.ngfw/*/api/*.cs",
+    "sdk/servicefabricmanagedclusters/*/api/*.cs"
   ],
   // cspell is not case sensitive
   // Sort words alphabetically to make this list easier to use
   "words": [
+    "AADDS",
+    "AADKERB",
     "apos",
     "azsdk",
     "blazor",
+    "Byok",
     "centralus",
+    "Colls",
     "contoso",
     "cpus",
     "cref",
+    "Dapr",
     "deduplication",
+    "deletesas",
     "deserializable",
     "deserializes",
     "diagnoser",
     "dicom",
+    "Diffie",
     "distro",
+    "Dmarc",
     "dont",
     "dotnetcli",
     "dtmf",
     "eastus",
     "entra",
     "epsg",
+    "Exfiltration",
     "expando",
     "fhir",
     "finalizer",
     "finalizers",
+    "Fips",
     "flac",
+    "getsas",
+    "Gmsa",
+    "GZRS",
     "hnsw",
     "ienumerable",
     "illumos",
     "imds",
+    "Inotify",
     "interventional",
     "ints",
+    "Intvl",
+    "Istio",
+    "Itsm",
+    "Keda",
+    "Kubelet",
+    "Kubenet",
     "kubernetes",
     "kusto",
+    "Kustomization",
+    "Kustomizations",
+    "listsas",
     "lucene",
     "mgmt",
     "miscs",
@@ -106,17 +132,26 @@
     "personalizer",
     "petabit",
     "picometer",
+    "Pids",
     "pkcs",
     "pstn",
+    "Puid",
     "pwsh",
+    "RAGRS",
+    "RAGZRS",
     "referer",
     "renormalize",
     "retriable",
+    "Servfail",
+    "setsas",
     "signalr",
     "signup",
     "skus",
+    "Somaxconn",
     "southcentralus",
     "structs",
+    "Sysctls",
+    "SYSLIB",
     "Uefi",
     "uints",
     "unbilled",
@@ -124,6 +159,8 @@
     "unformattable",
     "unhold",
     "uninstrumented",
+    "Unparked",
+    "Unprovisioning",
     "vcpus",
     "Vectorizable",
     "Vectorize",
@@ -134,8 +171,11 @@
     "vmss",
     "vmuuid",
     "vnet",
+    "VSTSRM",
+    "Wasi",
     "westcentralus",
     "westus",
+    "Wmem",
     "xunit"
   ],
   "overrides": [
@@ -143,6 +183,12 @@
       "filename": "**/eng/pipelines/templates/jobs/ci.yml",
       "words": [
         "warnaserror"
+      ]
+    },
+    {
+      "filename": "**/sdk/ai/**/*.cs",
+      "words": [
+        "Ubinary"
       ]
     },
     {
@@ -202,7 +248,8 @@
         "nsxt",
         "vcenter",
         "vcsa",
-        "vmotion"
+        "vmotion",
+        "Iscsi"
       ]
     },
     {
@@ -218,6 +265,12 @@
       ]
     },
     {
+      "filename": "**/sdk/computefleet/**/*.cs",
+      "words": [
+        "Rdma"
+      ]
+    },
+    {
       "filename": "**/sdk/batch/**/*.cs",
       "words": [
         "cifs",
@@ -226,6 +279,14 @@
         "Reimaging",
         "reimaging",
         "SSDLRS"
+      ]
+    },
+    {
+      "filename": "**/sdk/billing/**/*.cs",
+      "words": [
+        "puid",
+        "resellee",
+        "cnpj"
       ]
     },
     {
@@ -268,6 +329,14 @@
       ]
     },
     {
+      "filename": "**/sdk/computefleet/**/*.cs",
+      "words": [
+        "mbps",
+        "unattend",
+        "nvme"
+      ]
+    },
+    {
       "filename": "**/sdk/confidentialledger/**/*.cs",
       "words": [
         "cbor",
@@ -289,21 +358,27 @@
         "grek",
         "gujr",
         "gurmukhi",
+        "hani",
         "hebr",
         "inclusivity",
         "jpan",
         "khmr",
         "knda",
         "laoo",
+        "meitei",
         "mlym",
+        "mtei",
         "mymr",
         "nigiri",
         "odia",
+        "olck",
         "orya",
         "petabit",
         "picometer",
         "qnas",
         "regon",
+        "sharada",
+        "shrd",
         "taml",
         "telu",
         "thaa",
@@ -765,6 +840,7 @@
         "Gcmaes",
         "Generatevirtualwanvpnserverconfigurationvpnprofile",
         "ikev",
+        "ipam",
         "Ipconfiguration",
         "Mbps",
         "Nics",
@@ -848,11 +924,19 @@
       ]
     },
     {
-      "filename": "**/sdk/maps/Azure.Maps.TimeZone/**/*.cs",
+      "filename": "**/sdk/maps/Azure.Maps.TimeZones/**/*.cs",
       "words": [
         "Posix",
         "posix",
         "POSIX"
+      ]
+    },
+    {
+      "filename": "**/sdk/maps/Azure.Maps.Weather/**/*.cs",
+      "words": [
+        "Actuals",
+        "Bangla",
+        "Hecto"
       ]
     },
     {
@@ -922,6 +1006,25 @@
       "filename": "**/sdk/networkfunction/**/*.cs",
       "words": [
         "ipfix"
+      ]
+    },
+    {
+      "filename": "**/sdk/openai/**/*",
+      "words": [
+        "AOAI",
+        "Arrr",
+        "Dall",
+        "Dalle",
+        "Dall-E",
+        "devcert",
+        "Filip",
+        "Filip's",
+        "granularities",
+        "haikus",
+        "msdocs",
+        "OpenAI",
+        "Pavleski",
+        "Tekakwitha"
       ]
     },
     {
@@ -1008,6 +1111,7 @@
     {
       "filename": "**/sdk/postgresql/**/*.cs",
       "words": [
+        "awsec",
         "byok",
         "vcore",
         "vcores"
@@ -1105,6 +1209,12 @@
       ]
     },
     {
+      "filename": "**/sdk/resourcemanager/**/*.cs",
+      "words": [
+        "AZPROVISION"
+      ]
+    },
+    {
       "filename": "**/sdk/resources/Azure.ResourceManager.Resources/api/*.cs",
       "words": [
         "Puid",
@@ -1199,7 +1309,8 @@
         "Puid",
         "Stix",
         "Whois",
-        "Nlstext"
+        "Nlstext",
+        "Criterias"
       ]
     },
     {
@@ -1513,6 +1624,18 @@
       "words": [
         "AOAI",
         "Rerank"
+      ]
+    },
+    {
+      "filename": "**/sdk/cognitivelanguage/Azure.AI.Language.Text.Authoring/api/*.cs",
+      "words": [
+        "prebuilts"
+      ]
+    },
+    {
+      "filename": "**/sdk/cognitivelanguage/Azure.AI.Language.Conversations.Authoring/api/*.cs",
+      "words": [
+        "prebuilts"
       ]
     }
   ],

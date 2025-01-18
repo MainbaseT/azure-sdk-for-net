@@ -20,22 +20,25 @@ namespace Azure.ResourceManager.Quota.Models
 
         void IJsonModel<GroupQuotaEntityBase>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
+            writer.WriteStartObject();
+            JsonModelWriteCore(writer, options);
+            writer.WriteEndObject();
+        }
+
+        /// <param name="writer"> The JSON writer. </param>
+        /// <param name="options"> The client options for reading and writing models. </param>
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        {
             var format = options.Format == "W" ? ((IPersistableModel<GroupQuotaEntityBase>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
                 throw new FormatException($"The model {nameof(GroupQuotaEntityBase)} does not support writing '{format}' format.");
             }
 
-            writer.WriteStartObject();
             if (Optional.IsDefined(DisplayName))
             {
                 writer.WritePropertyName("displayName"u8);
                 writer.WriteStringValue(DisplayName);
-            }
-            if (Optional.IsDefined(AdditionalAttributes))
-            {
-                writer.WritePropertyName("additionalAttributes"u8);
-                writer.WriteObjectValue(AdditionalAttributes, options);
             }
             if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
             {
@@ -57,7 +60,6 @@ namespace Azure.ResourceManager.Quota.Models
 #endif
                 }
             }
-            writer.WriteEndObject();
         }
 
         GroupQuotaEntityBase IJsonModel<GroupQuotaEntityBase>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
@@ -81,7 +83,6 @@ namespace Azure.ResourceManager.Quota.Models
                 return null;
             }
             string displayName = default;
-            GroupQuotaAdditionalAttributes additionalAttributes = default;
             QuotaRequestStatus? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -90,15 +91,6 @@ namespace Azure.ResourceManager.Quota.Models
                 if (property.NameEquals("displayName"u8))
                 {
                     displayName = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("additionalAttributes"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    additionalAttributes = GroupQuotaAdditionalAttributes.DeserializeGroupQuotaAdditionalAttributes(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("provisioningState"u8))
@@ -116,7 +108,7 @@ namespace Azure.ResourceManager.Quota.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new GroupQuotaEntityBase(displayName, additionalAttributes, provisioningState, serializedAdditionalRawData);
+            return new GroupQuotaEntityBase(displayName, provisioningState, serializedAdditionalRawData);
         }
 
         private BinaryData SerializeBicep(ModelReaderWriterOptions options)
@@ -150,21 +142,6 @@ namespace Azure.ResourceManager.Quota.Models
                     {
                         builder.AppendLine($"'{DisplayName}'");
                     }
-                }
-            }
-
-            hasPropertyOverride = hasObjectOverride && propertyOverrides.TryGetValue(nameof(AdditionalAttributes), out propertyOverride);
-            if (hasPropertyOverride)
-            {
-                builder.Append("  additionalAttributes: ");
-                builder.AppendLine(propertyOverride);
-            }
-            else
-            {
-                if (Optional.IsDefined(AdditionalAttributes))
-                {
-                    builder.Append("  additionalAttributes: ");
-                    BicepSerializationHelpers.AppendChildObject(builder, AdditionalAttributes, options, 2, false, "  additionalAttributes: ");
                 }
             }
 

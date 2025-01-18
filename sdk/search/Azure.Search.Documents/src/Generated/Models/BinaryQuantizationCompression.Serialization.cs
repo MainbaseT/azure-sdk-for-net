@@ -36,6 +36,30 @@ namespace Azure.Search.Documents.Indexes.Models
                     writer.WriteNull("defaultOversampling");
                 }
             }
+            if (Optional.IsDefined(RescoringOptions))
+            {
+                if (RescoringOptions != null)
+                {
+                    writer.WritePropertyName("rescoringOptions"u8);
+                    writer.WriteObjectValue(RescoringOptions);
+                }
+                else
+                {
+                    writer.WriteNull("rescoringOptions");
+                }
+            }
+            if (Optional.IsDefined(TruncationDimension))
+            {
+                if (TruncationDimension != null)
+                {
+                    writer.WritePropertyName("truncationDimension"u8);
+                    writer.WriteNumberValue(TruncationDimension.Value);
+                }
+                else
+                {
+                    writer.WriteNull("truncationDimension");
+                }
+            }
             writer.WriteEndObject();
         }
 
@@ -49,6 +73,8 @@ namespace Azure.Search.Documents.Indexes.Models
             VectorSearchCompressionKind kind = default;
             bool? rerankWithOriginalVectors = default;
             double? defaultOversampling = default;
+            RescoringOptions rescoringOptions = default;
+            int? truncationDimension = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -80,8 +106,34 @@ namespace Azure.Search.Documents.Indexes.Models
                     defaultOversampling = property.Value.GetDouble();
                     continue;
                 }
+                if (property.NameEquals("rescoringOptions"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        rescoringOptions = null;
+                        continue;
+                    }
+                    rescoringOptions = RescoringOptions.DeserializeRescoringOptions(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("truncationDimension"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        truncationDimension = null;
+                        continue;
+                    }
+                    truncationDimension = property.Value.GetInt32();
+                    continue;
+                }
             }
-            return new BinaryQuantizationCompression(name, kind, rerankWithOriginalVectors, defaultOversampling);
+            return new BinaryQuantizationCompression(
+                name,
+                kind,
+                rerankWithOriginalVectors,
+                defaultOversampling,
+                rescoringOptions,
+                truncationDimension);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>

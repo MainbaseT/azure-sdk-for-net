@@ -1,14 +1,54 @@
 # Release History
 
-## 12.0.0-beta.6 (Unreleased)
+## 12.0.0-beta.7 (Unreleased)
 
 ### Features Added
 
 ### Breaking Changes
+- Renamed the following types/properties:
+    - `DataTransfer` -> `TransferOperation`
+        - Addtionally renamed the `TransferStatus` property to `Status`
+    - `DataTransferEventArgs` -> `TransferEventArgs`
+    - `DataTransferOptions` -> `TransferOptions`
+    - `DataTransferOrder` -> `TransferOrder`
+    - `DataTransferProgress` -> `TransferProgress`
+    - `DataTransferProperties` -> `TransferProperties`
+    - `DataTransferState` -> `TransferState`
+    - `DataTransferStatus` -> `TransferStatus`
+    - `DataTransferErrorMode` -> `TransferErrorMode`
+    - `StorageResourceCheckpointData` -> `StorageResourceCheckpointDetails`
+    - `StorageResource.GetDestinationCheckpointData` -> `StorageResource.GetDestinationCheckpointDetails`
+    - `StorageResource.GetSourceCheckpointData` -> `StorageResource.GetSourceCheckpointDetails`
+    - `TransferProperties.DestinationCheckpointData` -> `TransferProperties.DestinationCheckpointDetails`
+    - `TransferProperties.SourceCheckpointData` -> `TransferProperties.SourceCheckpointDetails`
+    - `StorageResourceCreationPreference` -> `StorageResourceCreateMode`
+    - `TransferManager.PauseTransferIfRunningAsync` -> `TransferManager.PauseTransferAsync`
+    - `TransferManagerOptions.ErrorHandling` -> `TransferManagerOptions.ErrorMode`
+    - `TransferManagerOptions.CheckpointerOptions` -> `TransferManagerOptions.CheckpointStoreOptions`
+    - `TransferItemCompletedEventArgs.SourceResource` -> `TransferItemCompletedEventArgs.Source` and `TransferItemCompletedEventArgs.DestinationResource` -> `TransferItemCompletedEventArgs.Destination`
+    - `TransferItemFailedEventArgs.SourceResource` -> `TransferItemFailedEventArgs.Source` and `TransferItemFailedEventArgs.DestinationResource` -> `TransferItemFailedEventArgs.Destination`
+    - `TransferItemSkippedEventArgs.SourceResource` -> `TransferItemSkippedEventArgs.Source` and `TransferItemSkippedEventArgs.DestinationResource` -> `TransferItemSkippedEventArgs.Destination`
+    - `TransferCheckpointStoreOptions.Local` -> `TransferCheckpointStoreOptions.CreateLocalStore`
+    - `TransferCheckpointStoreOptions.Disabled` -> `TransferCheckpointStoreOptions.DisableCheckpoint`
+- Removed properties from `StorageResourceItemProperties` constructor since properties are settable.
+- Changed type of `StorageResourceItemProperties.RawProperties` to `IDictionary`.
 
 ### Bugs Fixed
+- Fixed bug where adding multiple transfers in parallel could cause a collision (`InvalidOperationException`) in the data transfers stored within the `TransferManager`.
 
 ### Other Changes
+
+## 12.0.0-beta.6 (2024-10-14)
+
+### Features Added
+- Added support to disable checkpointing via `TransferCheckpointStoreOptions.Disabled`.
+
+### Breaking Changes
+- Removed the constructor for `TransferCheckpointStoreOptions` and replaced with a static builder method `Local`.
+- Changed `TransferCheckpointStoreOptions.CheckpointerPath` to internal.
+
+### Other Changes
+- Upgraded `System.Text.Json` package dependency to 6.0.10 for security fix.
 
 ## 12.0.0-beta.5 (2024-07-16)
 

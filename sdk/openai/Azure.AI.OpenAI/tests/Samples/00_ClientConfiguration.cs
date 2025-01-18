@@ -5,13 +5,7 @@
 
 using System;
 using System.ClientModel;
-using System.ClientModel.Primitives;
-using System.IO;
-using System.Threading.Tasks;
-using Azure.Core.Pipeline;
-using Azure.Core.TestFramework;
 using Azure.Identity;
-using OpenAI.Audio;
 using OpenAI.Chat;
 
 namespace Azure.AI.OpenAI.Samples;
@@ -25,7 +19,7 @@ public partial class AzureOpenAISamples
 
         AzureOpenAIClient azureClient = new(
             new Uri("https://your-azure-openai-resource.com"),
-            new AzureKeyCredential(keyFromEnvironment));
+            new ApiKeyCredential(keyFromEnvironment));
         ChatClient chatClient = azureClient.GetChatClient("my-gpt-35-turbo-deployment");
         #endregion
     }
@@ -49,7 +43,8 @@ public partial class AzureOpenAISamples
         };
         AzureOpenAIClient azureClient = new(
             new Uri("https://your-azure-openai-resource.com"),
-            new DefaultAzureCredential());
+            new DefaultAzureCredential(),
+            options);
         ChatClient chatClient = azureClient.GetChatClient("my-gpt-4o-mini-deployment");
         #endregion
     }
@@ -64,8 +59,9 @@ public partial class AzureOpenAISamples
         #endregion
 
         AzureOpenAIClient azureClient = new(
-        new Uri("https://your-azure-openai-resource.com"),
-        new DefaultAzureCredential());
-            ChatClient chatClient = azureClient.GetChatClient("my-gpt-4o-mini-deployment");
+            new Uri("https://your-azure-openai-resource.com"),
+            new DefaultAzureCredential(),
+            optionsWithCustomAudience);
+        ChatClient chatClient = azureClient.GetChatClient("my-gpt-4o-mini-deployment");
     }
 }
